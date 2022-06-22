@@ -51,7 +51,7 @@ defaultEndpoint (_svcPrefix -> p) r = go (CI.mk p)
         "sts"
             | china     -> region "sts.cn-north-1.amazonaws.com.cn"
             | govcloud  -> region ("sts." <> reg <> ".amazonaws.com")
-            | otherwise -> global "sts.amazonaws.com"
+            | otherwise -> region ("sts." <> reg <> ".amazonaws.com")
 
         "s3"
             | virginia  -> global "s3.amazonaws.com"

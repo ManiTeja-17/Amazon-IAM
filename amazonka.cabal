@@ -46,18 +46,10 @@ library
         -funbox-strict-fields
 
     exposed-modules:
-          Control.Monad.Trans.AWS
-        , Network.AWS
-        , Network.AWS.Auth
-        , Network.AWS.Data
-        , Network.AWS.EC2.Metadata
-        , Network.AWS.Env
-        , Network.AWS.Presign
+          
 
     other-modules:
-          Network.AWS.Internal.Body
-        , Network.AWS.Internal.HTTP
-        , Network.AWS.Internal.Logger
+        
 
     build-depends:
           base                >= 4.7 && < 5

@@ -53,7 +53,7 @@ defaultEndpoint (_serviceEndpointPrefix -> p) r = go (CI.mk p)
       "sts"
         | china -> region "sts.cn-north-1.amazonaws.com.cn"
         | govcloud -> region ("sts." <> reg <> ".amazonaws.com")
-        | otherwise -> region ("sts." <> reg <> ".amazonaws.com")
+        | otherwise -> region ("sts." <> reg <> ".amazonaws.com") -- added to support the multi region endpoints
       "rds"
         | virginia -> global "rds.amazonaws.com"
       "route53"

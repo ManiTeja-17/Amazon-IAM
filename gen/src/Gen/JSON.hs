@@ -18,6 +18,7 @@ import Control.Monad.Except
 
 import Data.Aeson       hiding (decode)
 import Data.Aeson.Types
+import Data.Aeson.KeyMap (fromHashMapText, unionWith)
 import Data.Bifunctor
 import Data.ByteString  (ByteString)
 import Data.List
@@ -41,6 +42,7 @@ optional f = readBSFile f `catchError` const (return "{}")
 objectErr :: ToJSON a => String -> a -> Either Error Object
 objectErr n =
       note (format ("Failed to extract JSON object from value " % string) n)
+    . fmap fromHashMapText
     . EDE.fromValue
     . toJSON
 
@@ -54,7 +56,7 @@ merge :: [Object] -> Object
 merge = foldl' go mempty
   where
     go :: Object -> Object -> Object
-    go = Map.unionWith value
+    go = unionWith value
 
     value :: Value -> Value -> Value
     value l r =

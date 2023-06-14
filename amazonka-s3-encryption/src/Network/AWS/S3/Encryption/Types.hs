@@ -19,7 +19,7 @@ import           Control.Lens
 import           Crypto.Cipher.AES
 import           Crypto.Error
 import           Crypto.PubKey.RSA.Types as RSA
-import           Data.Aeson
+import           Data.Aeson hiding (Key(..))
 import qualified Data.ByteString.Lazy    as LBS
 import           Data.CaseInsensitive    (CI)
 import           Data.String
@@ -100,7 +100,7 @@ appendExtension (Ext s) o@(ObjectKey k)
 -- material description is merged with the description stored on the object during
 -- decryption.
 newtype Description = Description { fromDescription :: HashMap Text Text }
-    deriving (Eq, Show, Monoid, FromJSON, ToJSON)
+    deriving (Eq, Show, Semigroup, Monoid, FromJSON, ToJSON)
 
 instance ToByteString Description where
     toBS = toBS . encode

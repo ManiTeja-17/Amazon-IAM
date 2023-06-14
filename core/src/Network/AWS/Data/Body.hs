@@ -22,6 +22,8 @@ module Network.AWS.Data.Body where
 
 import           Control.Monad.Trans.Resource
 import           Data.Aeson
+import qualified Data.Aeson.Key               as Key
+import qualified Data.Aeson.KeyMap            as KeyMap
 import qualified Data.ByteString              as BS
 import           Data.ByteString.Builder      (Builder)
 import qualified Data.ByteString.Char8        as BS8
@@ -195,7 +197,7 @@ instance ToHashedBody Element        where toHashed = toHashed . encodeXML
 instance ToHashedBody QueryString    where toHashed = toHashed . toBS
 
 instance ToHashedBody (HashMap Text Value) where
-    toHashed = toHashed . Object
+    toHashed = toHashed . Object . KeyMap.fromHashMapText
 
 -- | Anything that can be converted to a streaming request 'Body'.
 class ToBody a where

@@ -42,10 +42,10 @@ exceptions r n = do
                 =$= CL.concatMap (view ltrsTableNames)
                  $$ CL.mapM_ (sayLn . mappend "Table: ")
 
-            say "Throwing deliberate IOError ... "
-            Left _ <- trying _IOException $
-                throwM (userError "deliberate!")
-            sayLn "OK!"
+            -- say "Throwing deliberate IOError ... "
+            -- Left _ <- trying _IOException $
+            --     throwM (userError "deliberate!")
+            -- sayLn "OK!"
 
             say $ "Performing table scan of " <> n <> " using 'send' ... "
             s <- try $ send scan'

@@ -36,6 +36,8 @@ instance IsString NS where
     fromString "" = mempty
     fromString s  = mkNS (fromString s)
 
+instance Semigroup NS
+
 instance Monoid NS where
     mempty = NS []
     mappend (NS xs) (NS ys)

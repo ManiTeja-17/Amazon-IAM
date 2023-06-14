@@ -18,7 +18,7 @@ module Gen.AST where
 
 import Control.Arrow
 import Control.Error
-import Control.Lens
+import Control.Lens hiding (Prefixed(..))
 import Control.Monad.Except (throwError)
 import Control.Monad.State
 

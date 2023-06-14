@@ -23,7 +23,8 @@ import           Crypto.Error
 import qualified Crypto.PubKey.RSA.PKCS15        as RSA
 import           Crypto.PubKey.RSA.Types
 import           Crypto.Random
-import           Data.Aeson
+import           Data.Aeson hiding               (Key)
+import qualified Data.Aeson.Key                  as Key
 import           Data.Bifunctor
 import           Data.ByteArray
 import           Data.CaseInsensitive            (CI)
@@ -147,7 +148,7 @@ instance ToHeaders Envelope where
 instance ToJSON Envelope where
     toJSON = object . map (bimap k v) . toMetadata
       where
-        k = toText . CI.foldedCase
+        k = Key.fromText . toText . CI.foldedCase
         v = String . toText
 
 instance ToBody Envelope where

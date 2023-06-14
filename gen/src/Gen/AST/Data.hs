@@ -52,7 +52,6 @@ import qualified Data.Text.Encoding           as Text
 import qualified Data.Text.Lazy               as LText
 import qualified Data.Text.Lazy.Encoding      as LText
 import qualified HIndent
-import qualified HIndent.Types                as HIndent
 import qualified Language.Haskell.Exts.Pretty as Exts
 import qualified Language.Haskell.Exts.Syntax as Exts
 
@@ -352,16 +351,17 @@ pp i d
     | otherwise   = pure (LText.fromStrict (Text.decodeUtf8 printed))
   where
     render =
-        LText.decodeUtf8 . Build.toLazyByteString
+        LText.fromStrict . Text.decodeUtf8
 
     reformat =
-        HIndent.reformat HIndent.defaultConfig Nothing Nothing
+        HIndent.reformat HIndent.defaultConfig [] Nothing
 
     errorMessage =
         LText.fromStrict
             . Text.decodeUtf8
             . flip mappend (", when formatting datatype:\n\n" <> printed <> "\n")
             . BS8.pack
+            . show
 
     printed =
         BS8.dropWhile isSpace . BS8.pack $

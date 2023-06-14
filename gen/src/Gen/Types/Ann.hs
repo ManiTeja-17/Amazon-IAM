@@ -1,4 +1,5 @@
 {-# LANGUAGE DeriveFunctor      #-}
+{-# LANGUAGE DeriveAnyClass     #-}
 {-# LANGUAGE DeriveGeneric      #-}
 {-# LANGUAGE FlexibleInstances  #-}
 {-# LANGUAGE LambdaCase         #-}
@@ -20,7 +21,7 @@ module Gen.Types.Ann where
 
 import Control.Comonad
 import Control.Comonad.Cofree
-import Control.Lens           hiding ((:<))
+import Control.Lens           hiding ((:<), Prefixed(..), prefixed)
 
 import Data.Aeson
 import Data.Function (on)
@@ -48,7 +49,7 @@ instance Hashable Direction
 data Mode
     = Bi
     | Uni !Direction
-      deriving (Eq, Show)
+      deriving (Eq, Show, Semigroup)
 
 instance Monoid Mode where
     mempty                  = Bi
@@ -62,6 +63,8 @@ data Relation = Relation
     } deriving (Eq, Show)
 
 makeClassy ''Relation
+
+instance Semigroup Relation
 
 instance Monoid Relation where
     mempty      = Relation 0 mempty

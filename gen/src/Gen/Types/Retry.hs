@@ -27,6 +27,7 @@ import Data.Maybe
 import Data.Monoid
 import Data.Text            (Text)
 import Data.Text.Manipulate
+import Data.Aeson.Key       (Key,toText)
 
 import Gen.Types.Map
 
@@ -34,7 +35,8 @@ import GHC.Generics
 
 import qualified Data.Text as Text
 
-defKey :: Text
+
+defKey :: Key
 defKey = "__default__"
 
 data When
@@ -116,7 +118,7 @@ parseRetry svc o = do
     -- Since the __default__ policy is everything in
     -- definitions, just add them all rather than dealing
     -- with references.
-    case r ^. at defKey of
+    case r ^. at (toText defKey) of
         Nothing -> fail $ "Missing: " ++ show defKey
         Just x  -> do
             Identity d <- parseJSON (Object x)
